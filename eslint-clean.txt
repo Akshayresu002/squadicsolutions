@@ -1,0 +1,92 @@
+﻿
+  86:14  error  Error: Cannot call impure 
+function during render
+  87:14  error  Error: Cannot call impure 
+function during render
+  88:14  error  Error: Cannot call impure 
+function during render
+  90:20  error  Error: Cannot call impure 
+function during render
+  90:45  error  Error: Cannot call impure 
+function during render
+  91:16  error  Error: Cannot call impure 
+function during render
+  96:57  error  Error: Cannot call impure 
+function during render
+  37:40  error  Unexpected any. Specify a 
+different type  
+@typescript-eslint/no-explicit-any
+  49:36  error  Unexpected any. Specify a 
+different type  
+@typescript-eslint/no-explicit-any
+  39:34  error  Unexpected any. Specify a 
+different type  
+@typescript-eslint/no-explicit-any
+  87:40   error  Error: Cannot call impure 
+function during render
+  89:29   error  Use "@ts-expect-error" 
+instead of "@ts-ignore", as "@ts-ignore" 
+will do nothing if the following line is 
+error-free                                  
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                
+@typescript-eslint/ban-ts-comment
+  90:29   error  No duplicate props allowed 
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+      react/jsx-no-duplicate-props
+  90:57   error  Error: Cannot call impure 
+function during render
+  90:120  error  Error: Cannot call impure 
+function during render
+  65:21  error  `"` can be escaped with 
+`&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  
+react/no-unescaped-entities
+  65:37  error  `"` can be escaped with 
+`&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  
+react/no-unescaped-entities
+Γ£û 19 problems (17 errors, 2 warnings)
+
+

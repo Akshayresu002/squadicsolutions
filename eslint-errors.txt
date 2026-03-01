@@ -1,0 +1,146 @@
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\layout\Navbar.tsx
+  10:7   warning  'navLinks' is assigned a value but never used         @typescript-eslint/no-unused-vars
+  28:11  warning  'scrollToSection' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\3d\AbstractSStructure.tsx
+  113:49  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\3d\AbstractSStructure.tsx:113:49
+  111 |
+  112 |                         {/* Floating Structural Panel */}
+> 113 |                         <mesh position={[0, 0, (Math.random() - 0.5) * 1.5]}>
+      |                                                 ^^^^^^^^^^^^^ Cannot call impure function
+  114 |                             <boxGeometry args={[1.5, 0.8, 0.1]} />
+  115 |                             <primitive object={glassMaterial} attach="material" />
+  116 |                             {/* Thin neon edge outline */}  react-hooks/purity
+  131:30  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\3d\AbstractSStructure.tsx:131:30
+  129 |                         key={`frag-${i}`}
+  130 |                         position={[
+> 131 |                             (Math.random() - 0.5) * 6,
+      |                              ^^^^^^^^^^^^^ Cannot call impure function
+  132 |                             (Math.random() - 0.5) * 6,
+  133 |                             (Math.random() - 0.5) * 4
+  134 |                         ]}                                                                                                 react-hooks/purity
+  132:30  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\3d\AbstractSStructure.tsx:132:30
+  130 |                         position={[
+  131 |                             (Math.random() - 0.5) * 6,
+> 132 |                             (Math.random() - 0.5) * 6,
+      |                              ^^^^^^^^^^^^^ Cannot call impure function
+  133 |                             (Math.random() - 0.5) * 4
+  134 |                         ]}
+  135 |                         rotation={[Math.random() * Math.PI, Math.random() * Math.PI, 0]}                                                  react-hooks/purity
+  133:30  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\3d\AbstractSStructure.tsx:133:30
+  131 |                             (Math.random() - 0.5) * 6,
+  132 |                             (Math.random() - 0.5) * 6,
+> 133 |                             (Math.random() - 0.5) * 4
+      |                              ^^^^^^^^^^^^^ Cannot call impure function
+  134 |                         ]}
+  135 |                         rotation={[Math.random() * Math.PI, Math.random() * Math.PI, 0]}
+  136 |                         scale={Math.random() * 0.5 + 0.2}                            react-hooks/purity
+  135:36  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\3d\AbstractSStructure.tsx:135:36
+  133 |                             (Math.random() - 0.5) * 4
+  134 |                         ]}
+> 135 |                         rotation={[Math.random() * Math.PI, Math.random() * Math.PI, 0]}
+      |                                    ^^^^^^^^^^^^^ Cannot call impure function
+  136 |                         scale={Math.random() * 0.5 + 0.2}
+  137 |                     >
+  138 |                         <boxGeometry args={[1, 1, 1]} />                                                     react-hooks/purity
+  135:61  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\3d\AbstractSStructure.tsx:135:61
+  133 |                             (Math.random() - 0.5) * 4
+  134 |                         ]}
+> 135 |                         rotation={[Math.random() * Math.PI, Math.random() * Math.PI, 0]}
+      |                                                             ^^^^^^^^^^^^^ Cannot call impure function
+  136 |                         scale={Math.random() * 0.5 + 0.2}
+  137 |                     >
+  138 |                         <boxGeometry args={[1, 1, 1]} />                            react-hooks/purity
+  136:32  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\3d\AbstractSStructure.tsx:136:32
+  134 |                         ]}
+  135 |                         rotation={[Math.random() * Math.PI, Math.random() * Math.PI, 0]}
+> 136 |                         scale={Math.random() * 0.5 + 0.2}
+      |                                ^^^^^^^^^^^^^ Cannot call impure function
+  137 |                     >
+  138 |                         <boxGeometry args={[1, 1, 1]} />
+  139 |                         <meshStandardMaterial                                                                 react-hooks/purity
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\About.tsx
+  37:40  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\CaseStudies.tsx
+  49:36  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\Process.tsx
+  39:34  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\TechStack.tsx
+  87:40   error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\TechStack.tsx:87:40
+  85 |                             }}
+  86 |                             animate={{
+> 87 |                                 y: [0, Math.random() * -15 - 5, 0]
+     |                                        ^^^^^^^^^^^^^ Cannot call impure function
+  88 |                             }}
+  89 |                             // @ts-ignore - Framer motion type issue with transition inside animate block vs prop
+  90 |                             transition={{ duration: 5 + Math.random() * 5, repeat: Infinity, ease: "easeInOut", delay: Math.random() * 2 }}                                                                                                                                  react-hooks/purity
+  89:29   error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/ban-ts-comment
+  90:29   error  No duplicate props allowed                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       react/jsx-no-duplicate-props
+  90:57   error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\TechStack.tsx:90:57
+  88 |                             }}
+  89 |                             // @ts-ignore - Framer motion type issue with transition inside animate block vs prop
+> 90 |                             transition={{ duration: 5 + Math.random() * 5, repeat: Infinity, ease: "easeInOut", delay: Math.random() * 2 }}
+     |                                                         ^^^^^^^^^^^^^ Cannot call impure function
+  91 |                         >
+  92 |                             <h3 className="text-sm font-bold uppercase tracking-widest mb-6 text-[#9CA3AF]">
+  93 |                                 {category.label}                                                                  react-hooks/purity
+  90:120  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\TechStack.tsx:90:120
+  88 |                             }}
+  89 |                             // @ts-ignore - Framer motion type issue with transition inside animate block vs prop
+> 90 |                             transition={{ duration: 5 + Math.random() * 5, repeat: Infinity, ease: "easeInOut", delay: Math.random() * 2 }}
+     |                                                                                                                        ^^^^^^^^^^^^^ Cannot call impure function
+  91 |                         >
+  92 |                             <h3 className="text-sm font-bold uppercase tracking-widest mb-6 text-[#9CA3AF]">
+  93 |                                 {category.label}  react-hooks/purity
+
+C:\Users\aksha\Downloads\squadicsolutions\src\components\sections\Testimonials.tsx
+  65:21  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  65:37  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+G£û 19 problems (17 errors, 2 warnings)
+
