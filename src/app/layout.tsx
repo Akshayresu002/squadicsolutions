@@ -11,6 +11,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "SquadicSolutions | Web Development, Software & AI Solutions",
   description: "SquadicSolutions is a modern technology company offering web development, custom software engineering, AI systems, data analytics and enterprise automation solutions.",
+  verification: {
+  google: "xysSosO5rXZOhdKbfBaNsNonoCevlHPtHdd9_er-ozw",
+},
   keywords: ["SquadicSolutions", "Squadic Solutions", "Web Development Company", "AI Software Company"],
   openGraph: {
     title: "SquadicSolutions | Web Development, Software & AI Solutions",
