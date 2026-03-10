@@ -42,11 +42,11 @@ const jsonLd = {
   "name": "SquadicSolutions",
   "url": "https://squadicsolutions.online",
   "description": "SquadicSolutions is a modern technology company offering web development, custom software engineering, AI systems, data analytics and enterprise automation solutions.",
-  "logo": "https://squadicsolutions.store/logo.png",
+  "logo": "https://squadicsolutions.online/logo.png",
   "foundingDate": "2023",
   "contactPoint": {
     "@type": "ContactPoint",
-    "email": "hello@squadicsolutions.store",
+    "email": "hello@squadicsolutions.online",
     "contactType": "customer service"
   },
   "sameAs": [
