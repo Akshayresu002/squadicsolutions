@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description: "SquadicSolutions is a modern technology company offering web development, custom software engineering, AI systems, data analytics and enterprise automation solutions.",
     type: "website",
     siteName: "SquadicSolutions",
-    url: "https://squadicsolutions.store",
+    url: "https://squadicsolutions.online",
   },
   twitter: {
     card: "summary_large_image",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description: "SquadicSolutions is a modern technology company offering web development, custom software engineering, AI systems, data analytics and enterprise automation solutions.",
   },
   alternates: {
-    canonical: "https://squadicsolutions.store",
+    canonical: "https://squadicsolutions.online",
   },
   robots: {
     index: true,
@@ -40,7 +40,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "SquadicSolutions",
-  "url": "https://squadicsolutions.store",
+  "url": "https://squadicsolutions.online",
   "description": "SquadicSolutions is a modern technology company offering web development, custom software engineering, AI systems, data analytics and enterprise automation solutions.",
   "logo": "https://squadicsolutions.store/logo.png",
   "foundingDate": "2023",
