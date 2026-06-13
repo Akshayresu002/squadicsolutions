@@ -1,140 +1,152 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useRef } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import { Compass, Lightbulb, PenTool, Terminal, Cloud, BarChart3 } from 'lucide-react';
 
 const steps = [
-    { id: '01', title: 'Architecture Blueprint', desc: 'Deep-system structural analysis and robust cluster mapping.' },
-    { id: '02', title: 'Intelligence Integration', desc: 'Embedding neural networks and automated logic pipelines.' },
-    { id: '03', title: 'High-Velocity Coding', desc: 'Secure, scalable execution executing strict automated CI/CD.' },
-    { id: '04', title: 'Zero-Downtime Deploy', desc: 'Asynchronous release into isolated cloud-native environments.' },
-    { id: '05', title: 'Telemetry Scaling', desc: 'Continuous performance optimization and live data monitoring.' },
+    {
+        id: '01',
+        title: 'Discovery',
+        desc: 'We perform a deep technical audit, telemetry assessment, and operational analysis of your legacy system.',
+        icon: Compass,
+        color: '#2563EB',
+    },
+    {
+        id: '02',
+        title: 'Strategy',
+        desc: 'Our architects outline custom microservices, database schemas, and scalability blueprints.',
+        icon: Lightbulb,
+        color: '#06B6D4',
+    },
+    {
+        id: '03',
+        title: 'Design',
+        desc: 'We model data flows, user experiences, APIs, and security structures with precision.',
+        icon: PenTool,
+        color: '#7C3AED',
+    },
+    {
+        id: '04',
+        title: 'Development',
+        desc: 'Our engineers build clean, highly-typed software utilizing automated CI/CD configurations.',
+        icon: Terminal,
+        color: '#2563EB',
+    },
+    {
+        id: '05',
+        title: 'Deployment',
+        desc: 'We release the code asynchronously into containerized, zero-downtime staging and production.',
+        icon: Cloud,
+        color: '#06B6D4',
+    },
+    {
+        id: '06',
+        title: 'Scale & telemetry',
+        desc: 'We integrate advanced logging and monitoring systems to continuously optimize query latency.',
+        icon: BarChart3,
+        color: '#7C3AED',
+    },
 ];
 
 export default function Process() {
     const sectionRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 70%",
-                    end: "bottom 80%",
-                    scrub: 1,
-                }
-            });
-
-            // Draw the SVG glowing line
-            tl.fromTo(".process-line path",
-                { strokeDasharray: "1000", strokeDashoffset: "1000" },
-                { strokeDashoffset: "0", ease: "none", duration: 1 }
-            );
-
-            // Pop in the nodes sequentially along the scroll
-            const nodes = gsap.utils.toArray('.process-node');
-            nodes.forEach((node: any, index) => {
-                tl.fromTo(node,
-                    { scale: 0, opacity: 0, filter: 'blur(10px)' },
-                    {
-                        scale: 1,
-                        opacity: 1,
-                        filter: 'blur(0px)',
-                        ease: "back.out(1.7)",
-                        duration: 0.2
-                    },
-                    index * 0.2 // Sequence them along the total duration
-                );
-
-                // Add a continuous slow pulse to the node circles after they appear
-                gsap.to(node.querySelector('.node-circle'), {
-                    boxShadow: "0 0 30px rgba(37,99,235,0.6)",
-                    scale: 1.05,
-                    duration: 1.5,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut"
-                });
-            });
-
-        }, sectionRef);
-
-        return () => ctx.revert();
-    }, []);
+    
+    // Track scroll position inside section to animate connection line
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start center", "end center"]
+    });
+    
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
 
     return (
-        <section ref={sectionRef} className="section-padding bg-[#000000] relative overflow-hidden" id="process">
-            {/* Dark Grid Background */}
+        <section ref={sectionRef} className="section-padding bg-[#0B1120] relative overflow-hidden" id="process">
+            {/* Background Grid */}
             <div className="absolute inset-0 bg-grid-lines opacity-10 pointer-events-none" />
+            <div className="absolute top-[20%] left-[-10%] w-[400px] h-[400px] bg-[#2563EB] rounded-full blur-[150px] opacity-[0.03] pointer-events-none" />
 
-            <div className="max-w-container relative z-10 pt-12">
-
+            <div className="max-w-container relative z-10">
+                {/* Header */}
                 <div className="flex flex-col items-center text-center mb-32">
-                    <span className="text-xs font-bold uppercase tracking-[0.3em] inline-block mb-4 text-[#2563EB]">
-                        Phase Progression
+                    <span className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[#06B6D4] text-xs font-extrabold uppercase tracking-[0.2em] mb-4">
+                        Our Process
                     </span>
-                    <h2 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 drop-shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                        Deployment Matrix
+                    <h2 className="text-fluid-h2 font-black text-white tracking-tight mb-6 leading-none">
+                        Precision Engineering Lifecycle
                     </h2>
-                    <p className="text-xl text-[#A1A1AA] max-w-2xl">
-                        A strictly linear, mathematically precise lifecycle designed to eliminate technical debt and ensure flawless production resilience.
+                    <p className="text-lg md:text-xl text-[#94A3B8] max-w-2xl font-medium">
+                        A strictly structured workflow designed to eliminate technical debt and ensure absolute runtime safety.
                     </p>
                 </div>
 
-                <div className="relative mt-24 mb-16">
-                    {/* SVG Connecting Line */}
-                    <svg className="process-line absolute top-6 left-0 w-full h-8 z-0 hidden md:block" preserveAspectRatio="none">
-                        <defs>
-                            <linearGradient id="line-glow" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stopColor="#2563EB" stopOpacity="0.1" />
-                                <stop offset="50%" stopColor="#06B6D4" stopOpacity="1" />
-                                <stop offset="100%" stopColor="#7C3AED" stopOpacity="0.1" />
-                            </linearGradient>
-                            <filter id="glow-filter">
-                                <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur" />
-                                    <feMergeNode in="SourceGraphic" />
-                                </feMerge>
-                            </filter>
-                        </defs>
-                        <path d={`M 0 16 L \${window.innerWidth > 0 ? window.innerWidth : 2000} 16`} stroke="url(#line-glow)" strokeWidth="3" fill="none" filter="url(#glow-filter)" />
-                    </svg>
+                {/* Timeline wrapper */}
+                <div className="relative">
+                    {/* Animated Connection Line for Desktop (horizontal) */}
+                    <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-white/5 -translate-y-1/2 hidden xl:block z-0">
+                        <motion.div
+                            style={{ scaleX }}
+                            className="h-full bg-gradient-to-r from-[#2563EB] via-[#06B6D4] to-[#7C3AED] origin-left shadow-[0_0_10px_rgba(6,182,212,0.8)]"
+                        />
+                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-8 relative z-10">
-                        {steps.map((step, index) => (
-                            <div key={step.id} className="process-node relative flex flex-row md:flex-col items-start gap-6 md:gap-8">
+                    {/* Timeline Nodes Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-12 xl:gap-8 relative z-10">
+                        {steps.map((step, index) => {
+                            const Icon = step.icon;
 
-                                {/* Timeline Node */}
-                                <div className="node-circle relative w-12 h-12 rounded-full bg-[#0A0A0A] border-2 border-[#2563EB] flex items-center justify-center shrink-0 z-10 shadow-[0_0_15px_rgba(37,99,235,0.3)]">
-                                    <span className="text-[#06B6D4] font-bold text-sm tracking-widest">{step.id}</span>
-                                    {/* Inner glowing core */}
-                                    <div className="absolute inset-2 rounded-full bg-[#2563EB] opacity-20 blur-[2px]" />
-                                </div>
+                            return (
+                                <motion.div
+                                    key={step.id}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: '-50px' }}
+                                    transition={{ duration: 0.6, delay: index * 0.1, ease: 'easeOut' }}
+                                    className="flex flex-col items-center text-center group"
+                                >
+                                    {/* Timeline Node Ring */}
+                                    <div className="relative mb-8 flex items-center justify-center">
+                                        <div
+                                            className="w-16 h-16 rounded-full bg-[#030712] border-2 flex items-center justify-center z-10 transition-all duration-500 group-hover:scale-110 shadow-lg"
+                                            style={{
+                                                borderColor: step.color,
+                                                boxShadow: `0 0 15px ${step.color}30`
+                                            }}
+                                        >
+                                            <Icon size={20} style={{ color: step.color }} />
+                                        </div>
+                                        
+                                        {/* Outer pulse */}
+                                        <div
+                                            className="absolute w-20 h-20 rounded-full border border-dashed opacity-0 group-hover:opacity-30 group-hover:animate-[spin_12s_linear_infinite] pointer-events-none"
+                                            style={{ borderColor: step.color }}
+                                        />
+                                    </div>
 
-                                {/* Vertical Line for Mobile */}
-                                {index !== steps.length - 1 && (
-                                    <div className="absolute left-6 top-12 bottom-[-3rem] w-[2px] bg-gradient-to-b from-[#2563EB] to-[#0A0A0A] md:hidden opacity-50" />
-                                )}
+                                    {/* Step ID Badge */}
+                                    <span
+                                        className="text-xs font-black uppercase tracking-widest px-2.5 py-1 rounded bg-white/5 border border-white/10 mb-4 transition-colors duration-300 group-hover:border-white/20 group-hover:text-white"
+                                        style={{ color: step.color }}
+                                    >
+                                        Step {step.id}
+                                    </span>
 
-                                {/* Card Content */}
-                                <div className="pt-1 md:pt-0 pb-8 md:pb-0">
-                                    <h3 className="text-xl font-extrabold text-white mb-3 tracking-tight">
+                                    <h3 className="text-xl font-bold text-white mb-3 tracking-tight">
                                         {step.title}
                                     </h3>
-                                    <p className="text-[#A1A1AA] text-sm leading-relaxed font-medium">
+
+                                    <p className="text-sm text-[#94A3B8] leading-relaxed font-medium px-4">
                                         {step.desc}
                                     </p>
-                                </div>
-
-                            </div>
-                        ))}
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 </div>
-
             </div>
         </section>
     );

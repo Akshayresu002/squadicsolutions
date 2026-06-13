@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
     appIsrStatus: false,
     buildActivity: false,
   } as any, // Bypass strict type check for newer experimental Next.js flags
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

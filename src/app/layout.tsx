@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ScrollProgress from "@/components/ui/ScrollProgress";
+import CustomCursor from "@/components/ui/CustomCursor";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,8 +14,8 @@ export const metadata: Metadata = {
   title: "SquadicSolutions | Web Development, Software & AI Solutions",
   description: "SquadicSolutions is a modern technology company offering web development, custom software engineering, AI systems, data analytics and enterprise automation solutions.",
   verification: {
-  google: "xysSosO5rXZOhdKbfBaNsNonoCevlHPtHdd9_er-ozw",
-},
+    google: "xysSosO5rXZOhdKbfBaNsNonoCevlHPtHdd9_er-ozw",
+  },
   keywords: ["SquadicSolutions", "Squadic Solutions", "Web Development Company", "AI Software Company"],
   openGraph: {
     title: "SquadicSolutions | Web Development, Software & AI Solutions",
@@ -46,7 +48,7 @@ const jsonLd = {
   "foundingDate": "2023",
   "contactPoint": {
     "@type": "ContactPoint",
-    "email": "hello@squadicsolutions.online",
+    "email": "info@squadicsolutions.online",
     "contactType": "customer service"
   },
   "sameAs": [
@@ -67,6 +69,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <ScrollProgress />
+        <CustomCursor />
         {children}
       </body>
     </html>

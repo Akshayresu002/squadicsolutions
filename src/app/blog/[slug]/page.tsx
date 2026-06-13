@@ -4,11 +4,12 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Link from 'next/link';
 
-// Define the content directly to meet the 800+ word requirement with heavy branded keywords
 const blogData = {
     'why-squadicsolutions-builds-scalable-software-systems': {
         title: 'Why SquadicSolutions Builds Scalable Software Systems',
         date: 'March 1, 2026',
+        category: 'Systems',
+        readTime: '6 min read',
         content: `
       <h2>The SquadicSolutions Approach to Enterprise Architecture</h2>
       <p>In today's hyper-competitive digital landscape, the difference between market dominance and operational failure often comes down to the underlying architecture of a company's software. At <strong>SquadicSolutions</strong>, we have spent years engineering structural, high-performance systems designed specifically to handle massive B2B scale. When enterprise leaders come to SquadicSolutions, they aren't looking for a quick template; they are looking for a foundational technological advantage.</p>
@@ -34,6 +35,8 @@ const blogData = {
     'how-squadicsolutions-uses-ai-for-business-automation': {
         title: 'How SquadicSolutions Uses AI for Business Automation',
         date: 'February 25, 2026',
+        category: 'AI',
+        readTime: '8 min read',
         content: `
       <h2>Redefining Workflows: The SquadicSolutions AI Initiative</h2>
       <p>Artificial Intelligence is no longer a buzzword; it is a fundamental driver of enterprise efficiency. At <strong>SquadicSolutions</strong>, we integrate sophisticated AI models directly into legacy business operations, transforming weeks of manual data processing into instantaneous, automated workflows. SquadicSolutions understands that true AI value doesn't come from a chatbot; it comes from deeply integrated, context-aware machine learning models.</p>
@@ -57,6 +60,8 @@ const blogData = {
     'future-of-data-analytics-with-squadicsolutions': {
         title: 'The Future of Data Analytics with SquadicSolutions',
         date: 'February 18, 2026',
+        category: 'Analytics',
+        readTime: '10 min read',
         content: `
       <h2>Unlocking Value: Data Engineering by SquadicSolutions</h2>
       <p>Data is the most valuable asset a modern enterprise possesses, but without the right infrastructure, it is completely useless. <strong>SquadicSolutions</strong> specializes in transforming chaotic, siloed data into highly structured, real-time business intelligence. The data engineering teams at SquadicSolutions build the pipelines that power the world's most data-driven organizations.</p>
@@ -79,8 +84,9 @@ const blogData = {
     }
 };
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const post = blogData[params.slug as keyof typeof blogData];
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const post = blogData[slug as keyof typeof blogData];
 
     if (!post) {
         return { title: 'Post Not Found | SquadicSolutions' };
@@ -88,15 +94,16 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
     return {
         title: `${post.title} | SquadicSolutions Blog`,
-        description: post.content.substring(0, 160).replace(/<[^>]*>?/gm, ''), // Strip HTML for description
+        description: post.content.substring(0, 160).replace(/<[^>]*>?/gm, ''),
         alternates: {
-            canonical: `https://squadicsolutions.store/blog/${params.slug}`,
+            canonical: `https://squadicsolutions.online/blog/${slug}`,
         },
     };
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-    const post = blogData[params.slug as keyof typeof blogData];
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const post = blogData[slug as keyof typeof blogData];
 
     if (!post) {
         notFound();
@@ -105,23 +112,41 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
     return (
         <>
             <Navbar />
-            <main className="flex min-h-[70vh] flex-col items-center pt-32 pb-24 bg-[#0A0A0A]">
-                <article className="max-w-3xl w-full px-6">
-                    <header className="mb-12">
-                        <span className="text-sm font-bold uppercase tracking-[0.3em] text-[#06B6D4] block mb-4">{post.date}</span>
-                        <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight shrink drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">{post.title}</h1>
+            <main className="min-h-screen bg-[#030712] pt-40 pb-24 relative overflow-hidden">
+                {/* Background Details */}
+                <div className="absolute inset-0 bg-grid-lines opacity-10 pointer-events-none" />
+                <div className="absolute top-[10%] left-[-15%] w-[600px] h-[600px] bg-[#2563EB] rounded-full blur-[200px] opacity-[0.04] pointer-events-none" />
+                <div className="absolute bottom-[20%] right-[-10%] w-[500px] h-[500px] bg-[#7C3AED] rounded-full blur-[180px] opacity-[0.03] pointer-events-none" />
+
+                <article className="max-w-3xl mx-auto px-6 relative z-10 w-full text-left">
+                    <header className="mb-14">
+                        <Link href="/blog" className="text-xs font-extrabold uppercase tracking-widest text-[#06B6D4] hover:text-white mb-6 transition-colors inline-block">
+                            &larr; Back to Insights
+                        </Link>
+                        
+                        <div className="flex items-center gap-4 text-xs text-[#94A3B8] font-bold uppercase tracking-wider mb-4">
+                            <span className="text-[#06B6D4]">{post.category}</span>
+                            <span>{post.date}</span>
+                            <span>{post.readTime}</span>
+                        </div>
+
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-tight mb-8">
+                            {post.title}
+                        </h1>
+                        <div className="h-[1px] w-full bg-white/10" />
                     </header>
 
+                    {/* Prose styles to format raw HTML blocks */}
                     <div
-                        className="prose prose-lg prose-invert max-w-none text-[#A1A1AA]
-                       prose-h2:text-3xl prose-h2:font-extrabold prose-h2:text-white prose-h2:mt-12 prose-h2:mb-6
-                       prose-h3:text-2xl prose-h3:font-bold prose-h3:text-white prose-h3:mt-8 prose-h3:mb-4
-                       prose-p:leading-relaxed prose-p:mb-6 prose-strong:text-white prose-a:text-[#2563EB]"
+                        className="prose prose-lg prose-invert max-w-none text-[#94A3B8] font-medium leading-relaxed
+                       prose-h2:text-3xl prose-h2:font-black prose-h2:text-white prose-h2:tracking-tight prose-h2:mt-12 prose-h2:mb-6
+                       prose-h3:text-2xl prose-h3:font-bold prose-h3:text-white prose-h3:tracking-tight prose-h3:mt-8 prose-h3:mb-4
+                       prose-p:mb-6 prose-strong:text-white prose-strong:font-bold prose-a:text-[#06B6D4] prose-a:font-bold"
                         dangerouslySetInnerHTML={{ __html: post.content }}
                     />
 
                     <div className="mt-16 pt-8 border-t border-white/10">
-                        <Link href="/blog" className="text-[#06B6D4] font-bold hover:text-[#2563EB] transition-colors">&larr; Back to all Engineering Insights</Link>
+                        <Link href="/blog" className="text-[#06B6D4] font-bold hover:text-white transition-colors">&larr; Back to all Engineering Insights</Link>
                     </div>
                 </article>
             </main>

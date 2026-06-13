@@ -1,197 +1,161 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SecondaryButton } from '@/components/ui/Button';
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 const caseStudies = [
     {
         id: '1',
         title: 'FinTech Analytics Engine',
+        slug: 'fintech-analytics-engine',
         industry: 'Financial Infrastructure',
-        result: 'Sub-millisecond latency on 10M+ daily transactions',
+        challenge: 'Legacy database scaling issues and high query latency over 10M+ daily transactional writes.',
+        solution: 'Deployed a distributed column-store ledger, Snowflake data pipelines, and Apache Kafka real-time queue structures.',
+        results: 'Sub-millisecond latency on high-frequency transactions with 99.999% uptime.',
         color: '#2563EB',
+        image: 'https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&q=80&w=800'
     },
     {
         id: '2',
         title: 'Diagnostic Neural Net',
+        slug: 'diagnostic-neural-net',
         industry: 'Healthcare AI',
-        result: '99.8% precision rate across 50k patient metrics',
+        challenge: 'Manually categorizing patient metrics led to delays in clinical diagnostics and higher error rates.',
+        solution: 'Designed a customized convolutional neural network trained on secure, HIPAA-regulated clinical metrics.',
+        results: '99.8% precision rate across 50,000 patient records, lowering diagnostic times by 84%.',
         color: '#06B6D4',
+        image: 'https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&q=80&w=800'
     },
     {
         id: '3',
         title: 'Global Supply Chain Router',
+        slug: 'global-supply-chain-router',
         industry: 'Enterprise Logistics',
-        result: 'Automated 12,000 daily routes via algorithmic pathing',
+        challenge: 'Massive transit delays across international ports due to inefficient route calculation and weather silos.',
+        solution: 'Built an algorithmic pathfinding middleware cluster utilizing multi-agent AI and live telemetry feeds.',
+        results: 'Fully automated 12,000 daily routes with a 38% reduction in fuel and transportation expenses.',
         color: '#7C3AED',
+        image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800'
     },
     {
         id: '4',
         title: 'ERP Cluster Migration',
+        slug: 'erp-cluster-migration',
         industry: 'Manufacturing Grid',
-        result: 'Zero-packet-loss asynchronous database swap',
+        challenge: 'Replacing a legacy mainframe with zero database downtime, avoiding manufacturing queue losses.',
+        solution: 'Orchestrated an asynchronous blue-green database swap utilizing Docker container clusters.',
+        results: 'Zero-packet-loss migration, protecting active assembly schedules.',
         color: '#2563EB',
+        image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=800'
     },
 ];
 
 export default function CaseStudies() {
-    const sectionRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Parallax entrance for panels
-            const panels = gsap.utils.toArray('.study-panel');
-
-            panels.forEach((panel: any, i) => {
-                gsap.fromTo(panel,
-                    { opacity: 0, y: 100, rotationX: 15, rotationY: i % 2 === 0 ? 10 : -10, translateZ: -100 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        rotationX: 10,
-                        rotationY: i % 2 === 0 ? 5 : -5,
-                        translateZ: 0,
-                        duration: 1.5,
-                        ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: panel,
-                            start: "top 85%",
-                        }
-                    }
-                );
-            });
-
-        }, sectionRef);
-
-        return () => ctx.revert();
-    }, []);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left; // x position within the element.
-        const y = e.clientY - rect.top;  // y position within the element.
-
-        // Calculate rotation based on cursor position (-5 to 5 degrees)
-        const xRotation = ((y - rect.height / 2) / rect.height) * -10;
-        const yRotation = ((x - rect.width / 2) / rect.width) * 10;
-
-        gsap.to(e.currentTarget, {
-            rotationX: xRotation,
-            rotationY: yRotation,
-            transformPerspective: 1000,
-            ease: "power2.out",
-            duration: 0.5
-        });
-
-        // Move the light reflection
-        const reflection = e.currentTarget.querySelector('.reflection');
-        if (reflection) {
-            gsap.to(reflection, {
-                x: x - rect.width / 2,
-                y: y - rect.height / 2,
-                opacity: 0.8,
-                ease: "power2.out",
-                duration: 0.2
-            });
-        }
-    };
-
-    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        const index = e.currentTarget.getAttribute('data-index');
-        const defaultY = Number(index) % 2 === 0 ? 5 : -5;
-
-        gsap.to(e.currentTarget, {
-            rotationX: 10,
-            rotationY: defaultY,
-            transformPerspective: 1000,
-            ease: "power3.out",
-            duration: 1
-        });
-
-        const reflection = e.currentTarget.querySelector('.reflection');
-        if (reflection) {
-            gsap.to(reflection, {
-                opacity: 0,
-                ease: "power2.out",
-                duration: 0.5
-            });
-        }
-    };
-
     return (
-        <section ref={sectionRef} className="section-padding bg-[#0A0A0A] overflow-hidden" id="case-studies">
-            <div className="max-w-container">
+        <section className="section-padding bg-[#030712] relative overflow-hidden" id="case-studies">
+            {/* Background Atmosphere */}
+            <div className="absolute inset-0 bg-dot-matrix opacity-10 pointer-events-none" />
+            <div className="absolute top-[30%] right-[-20%] w-[500px] h-[500px] bg-[#7C3AED] rounded-full blur-[220px] opacity-[0.03] pointer-events-none" />
 
+            <div className="max-w-container">
+                {/* Header */}
                 <div className="flex flex-col items-center text-center mb-24">
-                    <h2 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 drop-shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                        Proven Architectures
+                    <span className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[#7C3AED] text-xs font-extrabold uppercase tracking-[0.2em] mb-4">
+                        Case Studies
+                    </span>
+                    <h2 className="text-fluid-h2 font-black text-white tracking-tight mb-6 leading-none">
+                        Proven Production Architectures
                     </h2>
-                    <p className="text-xl text-[#A1A1AA] max-w-2xl">
+                    <p className="text-lg md:text-xl text-[#94A3B8] max-w-2xl font-medium">
                         Explore instances where our high-performance infrastructure methodologies have radically transformed enterprise outcomes.
                     </p>
                 </div>
 
-                {/* 3D Tilted Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 perspective-[2000px]">
+                {/* Case Studies Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
                     {caseStudies.map((study, index) => (
                         <div
                             key={study.id}
-                            data-index={index}
-                            onMouseMove={handleMouseMove}
-                            onMouseLeave={handleMouseLeave}
-                            className="study-panel relative w-full aspect-[4/3] rounded border border-white/10 bg-[#000000] cursor-pointer"
-                            style={{ transformStyle: 'preserve-3d', boxShadow: `0 20px 50px rgba(0,0,0,0.5), 0 0 20px ${study.color}20` }}
+                            className="group relative w-full aspect-[4/3] rounded-3xl border border-white/10 bg-[#0B1120] overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer flex flex-col justify-end p-8"
                         >
-                            {/* Inner abstract geometric wireframe / texture representing the project */}
-                            <div className="absolute inset-0 overflow-hidden rounded opacity-[0.15]">
-                                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                                    <defs>
-                                        <pattern id={`grid-${study.id}`} width="40" height="40" patternUnits="userSpaceOnUse">
-                                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={study.color} strokeWidth="0.5" />
-                                        </pattern>
-                                    </defs>
-                                    <rect width="100%" height="100%" fill={`url(#grid-${study.id})`} />
-                                </svg>
+                            {/* Visual background image with hover zoom */}
+                            <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+                                <Image
+                                    src={study.image}
+                                    alt={study.title}
+                                    fill
+                                    className="object-cover brightness-[0.75] transition-transform duration-700 group-hover:scale-105"
+                                />
+                                {/* Dark radial shade */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/30 to-[#030712]/50 opacity-90" />
                             </div>
 
-                            {/* Volumetric glow based on project category */}
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full blur-[100px] opacity-[0.05] pointer-events-none" style={{ backgroundColor: study.color }} />
-
-                            {/* Cursor Tracker Light Reflection */}
-                            <div className="reflection absolute top-1/2 left-1/2 w-[300px] h-[300px] -ml-[150px] -mt-[150px] rounded-full blur-[60px] opacity-0 pointer-events-none mix-blend-screen" style={{ background: `radial-gradient(circle, ${study.color}60 0%, transparent 70%)` }} />
-
-                            {/* Panel Content (Popped out in Z space) */}
-                            <div className="absolute inset-x-8 bottom-8 z-10" style={{ transform: 'translateZ(50px)' }}>
-                                <span className="text-xs font-bold uppercase tracking-[0.3em] inline-block mb-3" style={{ color: study.color }}>
+                            {/* Base Content Visible at Start */}
+                            <div className="relative z-10 transition-all duration-500 group-hover:translate-y-[-180px] group-hover:opacity-0">
+                                <span
+                                    className="text-xs font-black uppercase tracking-[0.25em] mb-3 inline-block"
+                                    style={{ color: study.color }}
+                                >
                                     {study.industry}
                                 </span>
-                                <h3 className="text-3xl font-extrabold text-white mb-4 leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                                <h3 className="text-3xl font-black text-white tracking-tight mb-3">
                                     {study.title}
                                 </h3>
-                                <div className="h-[1px] w-12 bg-white/20 mb-4" />
-                                <p className="text-[#A1A1AA] font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mb-6 max-w-sm">
-                                    {study.result}
+                                <p className="text-sm text-[#94A3B8] font-medium leading-relaxed max-w-md">
+                                    {study.results}
                                 </p>
+                            </div>
 
-                                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center pointer-events-none bg-black/50 backdrop-blur-sm">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M5 12h14M12 5l7 7-7 7" />
-                                    </svg>
+                            {/* Sliding Glassmorphic Detailed Overlay */}
+                            <div className="absolute inset-x-0 bottom-0 z-20 h-[80%] rounded-b-3xl bg-[#111827]/85 backdrop-blur-xl border-t border-white/10 p-8 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 flex flex-col justify-between">
+                                <div>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#06B6D4] block mb-2">
+                                        {study.industry}
+                                    </span>
+                                    <h4 className="text-2xl font-black text-white tracking-tight mb-5">
+                                        {study.title}
+                                    </h4>
+
+                                    <div className="space-y-4">
+                                        <div>
+                                            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#94A3B8]/60">Challenge</span>
+                                            <p className="text-xs md:text-sm text-white/90 font-medium leading-relaxed mt-0.5">{study.challenge}</p>
+                                        </div>
+                                        <div>
+                                            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#94A3B8]/60">Solution</span>
+                                            <p className="text-xs md:text-sm text-white/90 font-medium leading-relaxed mt-0.5">{study.solution}</p>
+                                        </div>
+                                        <div>
+                                            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#94A3B8]/60">Results</span>
+                                            <p className="text-xs md:text-sm text-[#22C55E] font-extrabold leading-relaxed mt-0.5">{study.results}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
+                                    <span className="text-xs font-bold uppercase tracking-wider text-white">Explore Full Case Study</span>
+                                    <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-[#06B6D4] group-hover:border-[#06B6D4] transition-colors">
+                                        <ArrowUpRight size={14} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
 
-                <div className="mt-24 flex justify-center text-center">
-                    <SecondaryButton href="/services">View Full Architecture Directory</SecondaryButton>
+                {/* Footer Link */}
+                <div className="mt-20 flex justify-center text-center">
+                    <Link
+                        href="/case-studies"
+                        className="group flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#06B6D4] hover:text-white transition-colors duration-300"
+                    >
+                        View Full Case Studies Portfolio
+                        <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </Link>
                 </div>
-
-            </div >
-        </section >
+            </div>
+        </section>
     );
 }

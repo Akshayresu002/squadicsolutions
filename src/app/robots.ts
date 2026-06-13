@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: '*',
             allow: '/',
         },
-        sitemap: 'https://squadicsolutions.store/sitemap.xml',
+        sitemap: 'https://squadicsolutions.online/sitemap.xml',
     };
 }

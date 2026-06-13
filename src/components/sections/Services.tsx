@@ -1,133 +1,206 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { PrimaryButton } from '@/components/ui/Button';
-
-// Register ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
 
 const services = [
     {
+        id: 'web-dev',
         title: 'Web Engineering',
-        desc: 'High-performance applications engineered for speed, scalability, and absolute precision inside enterprise environments.',
-        action: '/services/web-development',
-        color: '#2563EB'
+        subtitle: 'High-performance web apps built for B2B scale.',
+        desc: 'We engineer high-performance web applications designed for massive user concurrency, sub-second loads, and absolute security. Using Next.js, React, and server-side edge rendering, we push computing closer to the user to maximize retention and conversion rates.',
+        image: '/images/web-development.png',
+        slug: 'web-development',
+        color: 'from-[#2563EB] to-[#06B6D4]',
+        features: ['Server-Side Edge Rendering', 'High Concurrency Optimizations', 'Strict Content Security Policies']
     },
     {
+        id: 'custom-software',
         title: 'Custom Systems',
-        desc: 'Tailored architectural solutions that solve complex enterprise challenges with robust scalable infrastructure.',
-        action: '/services/custom-software',
-        color: '#06B6D4'
+        subtitle: 'Bespoke architectures for operational complexity.',
+        desc: 'Tailored architectural solutions to solve your most complex operational challenges. We design secure, scalable microservices and modular monoliths that eliminate technical debt and integrate seamlessly with your existing infrastructure.',
+        image: '/images/custom-software.png',
+        slug: 'custom-software',
+        color: 'from-[#06B6D4] to-[#7C3AED]',
+        features: ['Orchestrated Microservices (Kubernetes)', 'Fault-Tolerant System Failovers', 'Clean Typed Architecture (TypeScript/Go)']
     },
     {
+        id: 'ai-solutions',
         title: 'AI Infrastructure',
-        desc: 'Intelligent integrations, predictive models, and sophisticated automation workflows for absolute business efficiency.',
-        action: '/services/ai-solutions',
-        color: '#7C3AED'
+        subtitle: 'Context-aware models embedded in operations.',
+        desc: 'Integrate custom predictive models, large language models, and machine learning workflows into your enterprise. We train custom models on your proprietary data, securing data privacy through isolated private-cloud deployments.',
+        image: '/images/ai-solutions.png',
+        slug: 'ai-solutions',
+        color: 'from-[#7C3AED] to-[#2563EB]',
+        features: ['Custom Neural Networks', 'Explainable AI Dashboards', 'HIPAA & GDPR Compliant Data Seals']
     },
     {
+        id: 'data-analytics',
         title: 'Data Intelligence',
-        desc: 'Transforming raw telemetry into actionable, interactive, and cleanly structured enterprise data insights.',
-        action: '/services/data-analytics',
-        color: '#2563EB'
+        subtitle: 'Structured real-time business telemetry.',
+        desc: 'Transform raw, siloed telemetry into clean, interactive, and structured real-time analytics. We build low-latency data pipelines and interactive executive dashboards featuring live WebSocket updates and predictive trend lines.',
+        image: '/images/data-analytics.png',
+        slug: 'data-analytics',
+        color: 'from-[#2563EB] to-[#7C3AED]',
+        features: ['Data Lakehouse Deployments', 'Kafka Real-Time Streams', 'Bespoke React BI Dashboards']
     },
     {
-        title: 'Cloud & DevOps',
-        desc: 'Resilient cloud-native architectures that are secure, multi-tenant capable, and heavily fault-tolerant.',
-        action: '/services/cloud-engineering',
-        color: '#7C3AED'
+        id: 'cloud-solutions',
+        title: 'Resilient Cloud & DevOps',
+        subtitle: 'Fault-tolerant serverless deployments.',
+        desc: 'Deploy resilient scale with cloud-native, multi-tenant architectures. We enforce automated CI/CD pipelines, containerized deployments, and automatic load scaling to handle traffic surges without degradation.',
+        image: '/images/cloud-engineering.png',
+        slug: 'cloud-engineering',
+        color: 'from-[#06B6D4] to-[#2563EB]',
+        features: ['Automated Blue-Green Deployments', 'Serverless Scaled Clusters', 'Real-Time Telemetry & Alert Grids']
+    },
+    {
+        id: 'automation-systems',
+        title: 'Business Automation',
+        subtitle: 'Hyper-automation workflows maximizing ROI.',
+        desc: 'Eliminate manual workflows and operational bottlenecks using advanced hyper-automation systems. We connect disparate ERP, CRM, and financial pipelines with secure intelligent middleware to streamline operations.',
+        image: '/images/automation-systems.png',
+        slug: 'automation-systems',
+        color: 'from-[#7C3AED] to-[#06B6D4]',
+        features: ['Bespoke Integration Middleware', 'Automated Inventory & Forecasting', 'Intelligent Robotic Process Loops']
     }
 ];
 
 export default function Services() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const wrapperRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const sections = gsap.utils.toArray('.service-slide');
-
-        const ctx = gsap.context(() => {
-            gsap.to(sections, {
-                xPercent: -100 * (sections.length - 1),
-                ease: "none",
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    pin: true,
-                    scrub: 1,
-                    snap: 1 / (sections.length - 1),
-                    end: () => "+=" + (wrapperRef.current?.offsetWidth || 0)
-                }
-            });
-
-            // Wireframe rotation
-            gsap.to(".wireframe-obj", {
-                rotationY: 360,
-                rotationX: 180,
-                duration: 20,
-                ease: "none",
-                repeat: -1,
-            });
-
-        }, containerRef);
-
-        return () => ctx.revert();
-    }, []);
-
     return (
-        <section ref={containerRef} className="relative h-screen bg-[#000000] overflow-hidden" id="services">
-            {/* Background Grid */}
+        <section className="section-padding bg-[#030712] relative overflow-hidden" id="services">
+            {/* Background Grid & Spotlights */}
             <div className="absolute inset-0 bg-grid-lines opacity-10 pointer-events-none" />
+            <div className="absolute top-[15%] left-[-20%] w-[60%] h-[40%] bg-[#2563EB] rounded-full blur-[220px] opacity-[0.03] pointer-events-none" />
+            <div className="absolute bottom-[20%] right-[-20%] w-[60%] h-[40%] bg-[#7C3AED] rounded-full blur-[220px] opacity-[0.03] pointer-events-none" />
 
-            <div
-                ref={wrapperRef}
-                className="flex w-[500vw] h-full"
-            >
-                {services.map((service, index) => (
-                    <div
-                        key={index}
-                        className="service-slide w-screen h-full flex flex-col md:flex-row items-center justify-center px-8 md:px-24 relative"
-                    >
-                        {/* Background Light Shift on Scroll per slide */}
-                        <div
-                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] blur-[200px] rounded-full opacity-10 pointer-events-none"
-                            style={{ backgroundColor: service.color }}
-                        />
+            <div className="max-w-container relative z-10">
+                {/* Section Header */}
+                <div className="flex flex-col items-center text-center mb-28">
+                    <span className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[#06B6D4] text-xs font-extrabold uppercase tracking-[0.2em] mb-4">
+                        Core Capabilities
+                    </span>
+                    <h2 className="text-fluid-h2 font-black text-white tracking-tight mb-6 max-w-3xl leading-none">
+                        Architecting High-Performance Enterprise Solutions
+                    </h2>
+                    <p className="text-lg md:text-xl text-[#94A3B8] max-w-2xl font-medium">
+                        We deliver technical excellence tailored for massive B2B velocity and absolute system stability.
+                    </p>
+                </div>
 
-                        {/* Left Side: Massive Typography */}
-                        <div className="w-full md:w-1/2 z-10 flex flex-col justify-center max-w-2xl pr-0 md:pr-12">
-                            <span className="text-sm uppercase tracking-[0.3em] font-bold text-[#A1A1AA] mb-4">0{index + 1} / 0{services.length}</span>
-                            <h2 className="text-5xl md:text-7xl font-extrabold text-white leading-[1.05] tracking-tight mb-8">
-                                {service.title}
-                            </h2>
-                            <p className="text-xl leading-relaxed text-[#A1A1AA] mb-12">
-                                {service.desc}
-                            </p>
-                            <div className="flex">
-                                <PrimaryButton href={service.action}>Explore Infrastructure</PrimaryButton>
-                            </div>
-                        </div>
+                {/* Services List (Alternating Layouts) */}
+                <div className="flex flex-col gap-36 md:gap-48">
+                    {services.map((service, index) => {
+                        const isEven = index % 2 === 0;
 
-                        {/* Right Side: Animated 3D Wireframe */}
-                        <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center relative z-10 mt-12 md:mt-0 perspective-1000">
-                            <svg className="wireframe-obj w-64 h-64 md:w-96 md:h-96 drop-shadow-[0_0_40px_rgba(255,255,255,0.1)] overflow-visible" viewBox="0 0 200 200" style={{ transformStyle: 'preserve-3d' }}>
-                                {/* Abstract Geometric Wireframe representing the service */}
-                                <g stroke={service.color} strokeWidth="1" fill="none" opacity="0.6">
-                                    <polygon points="100,20 180,60 180,140 100,180 20,140 20,60" />
-                                    <polygon points="100,40 160,70 160,130 100,160 40,130 40,70" />
-                                    <polygon points="100,60 140,80 140,120 100,140 60,120 60,80" />
-                                    <line x1="100" y1="20" x2="100" y2="180" />
-                                    <line x1="20" y1="60" x2="180" y2="140" />
-                                    <line x1="20" y1="140" x2="180" y2="60" />
-                                </g>
-                                {/* Glowing internal node */}
-                                <circle cx="100" cy="100" r="4" fill="#FFFFFF" className="animate-pulse" style={{ filter: `drop-shadow(0 0 10px ${service.color})` }} />
-                            </svg>
-                        </div>
-                    </div>
-                ))}
+                        return (
+                            <ServiceCard
+                                key={service.id}
+                                service={service}
+                                isEven={isEven}
+                                index={index}
+                            />
+                        );
+                    })}
+                </div>
             </div>
         </section>
+    );
+}
+
+interface CardProps {
+    service: typeof services[0];
+    isEven: boolean;
+    index: number;
+}
+
+function ServiceCard({ service, isEven, index }: CardProps) {
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    const { scrollYProgress } = useScroll({
+        target: cardRef,
+        offset: ["start end", "end start"]
+    });
+
+    // Subtly move image on scroll for a premium parallax effect
+    const imageY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+
+    return (
+        <div
+            ref={cardRef}
+            className={`grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center`}
+        >
+            {/* Text Side */}
+            <motion.div
+                initial={{ opacity: 0, x: isEven ? -40 : 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className={`lg:col-span-6 flex flex-col items-start ${isEven ? 'lg:order-1' : 'lg:order-2'}`}
+            >
+                <div className="flex items-center gap-3 mb-4">
+                    <span className="text-sm font-black text-white/30 tracking-widest">0{index + 1}</span>
+                    <div className={`h-[1px] w-8 bg-gradient-to-r ${service.color}`} />
+                    <span className="text-xs font-bold uppercase tracking-widest text-[#06B6D4]">{service.subtitle}</span>
+                </div>
+
+                <h3 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-6 leading-none">
+                    {service.title}
+                </h3>
+
+                <p className="text-base md:text-lg text-[#94A3B8] leading-relaxed mb-8 font-medium">
+                    {service.desc}
+                </p>
+
+                {/* Feature Bullets */}
+                <ul className="space-y-3.5 mb-10 w-full">
+                    {service.features.map((feat) => (
+                        <li key={feat} className="flex items-center gap-3 text-sm text-white/95 font-semibold">
+                            <CheckCircle2 size={16} className="text-[#06B6D4] shrink-0" />
+                            <span>{feat}</span>
+                        </li>
+                    ))}
+                </ul>
+
+                <PrimaryButton href={`/services/${service.slug}`}>
+                    Explore Capabilities
+                    <ArrowRight size={14} />
+                </PrimaryButton>
+            </motion.div>
+
+            {/* Image Side */}
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className={`lg:col-span-6 relative aspect-[16/10] w-full rounded-2xl border border-white/10 bg-[#0B1120]/80 p-2 overflow-hidden shadow-2xl group ${
+                    isEven ? 'lg:order-2' : 'lg:order-1'
+                }`}
+            >
+                {/* Glowing border outline */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50 pointer-events-none rounded-2xl" />
+
+                {/* Parallax Image container */}
+                <div className="relative w-full h-full overflow-hidden rounded-xl">
+                    <motion.div style={{ y: imageY }} className="absolute inset-0 w-full h-[120%] -top-[10%]">
+                        <Image
+                            src={service.image}
+                            alt={service.title}
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            priority={index < 2}
+                        />
+                    </motion.div>
+                </div>
+
+                {/* Soft glow in corner */}
+                <div className="absolute -bottom-8 -right-8 w-44 h-44 bg-[#06B6D4]/15 rounded-full blur-2xl group-hover:bg-[#06B6D4]/25 transition-all duration-500 pointer-events-none" />
+            </motion.div>
+        </div>
     );
 }

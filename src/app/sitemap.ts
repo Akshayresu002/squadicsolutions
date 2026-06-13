@@ -10,12 +10,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/services',
         '/contact',
         '/blog',
+        '/case-studies',
+        '/industries',
+        '/solutions',
+        // Services details
         '/services/web-development',
         '/services/ai-solutions',
         '/services/data-analytics',
         '/services/custom-software',
         '/services/automation-systems',
         '/services/cloud-engineering',
+        // Case studies details
+        '/case-studies/fintech-analytics-engine',
+        '/case-studies/diagnostic-neural-net',
+        '/case-studies/global-supply-chain-router',
+        '/case-studies/erp-cluster-migration',
+        // Blog details
+        '/blog/why-squadicsolutions-builds-scalable-software-systems',
+        '/blog/how-squadicsolutions-uses-ai-for-business-automation',
+        '/blog/future-of-data-analytics-with-squadicsolutions',
     ];
 
     // Map routes to sitemap format
